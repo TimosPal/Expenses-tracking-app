@@ -11,7 +11,7 @@ const remaining = computed(() => {
   return 0
 })
 
-const getClassOrName = (inverse, positive, negative) => {
+const getAttribute = (inverse, positive, negative) => {
   // A result might have positive or negative meaning
   // so we pass the inverse option to decide for each case.
   return remaining.value >= 0 ? (inverse ? positive : negative) : inverse ? negative : positive
@@ -20,10 +20,10 @@ const getClassOrName = (inverse, positive, negative) => {
 const colorClass = computed(() =>
   remaining.value == 0
     ? 'neutral'
-    : getClassOrName(props.resultOptions?.inverseMeaning ?? null, 'positive', 'negative')
+    : getAttribute(props.resultOptions?.inverseMeaning ?? null, 'positive', 'negative')
 )
 const resultName = computed(() =>
-  getClassOrName(
+  getAttribute(
     // Incase of missing props pass null.
     props.resultOptions?.inverseMeaning ?? null,
     props.resultOptions?.positiveName ?? null,

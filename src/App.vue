@@ -39,11 +39,13 @@ import { isActive } from '@/state/store'
     // Normal screem, not active.
     left: $sidebar-minimised-width;
     width: calc(100vw - $sidebar-minimised-width);
-  }
 
-  &.isActive {
-    left: $sidebar-maximised-width;
-    width: calc(100vw - $sidebar-maximised-width);
+    &.isActive {
+      // Only push page elements if in normal screen + activated.
+      // In phone mode, sidebar is hovering the page.
+      left: $sidebar-maximised-width;
+      width: calc(100vw - $sidebar-maximised-width);
+    }
   }
 }
 </style>
