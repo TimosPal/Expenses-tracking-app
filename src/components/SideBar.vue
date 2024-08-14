@@ -1,9 +1,9 @@
 <script setup>
-import { isActive } from '@/state/store'
+import { isActive, toggleClass } from '@/state/store'
 </script>
 
 <template>
-  <aside class="sidebar" :class="{ isActive: isActive }">
+  <aside class="sidebar" :class="toggleClass">
     <div class="logo-container">
       <h1>Tracking</h1>
     </div>
@@ -34,6 +34,15 @@ import { isActive } from '@/state/store'
 @import '@/assets/styles/components/topbar';
 @import '@/assets/styles/components/sidebar';
 
+@mixin sidebarToggle($width, $visibility, $opacity) {
+  width: $width;
+  li h4,
+  .logo-container h1 {
+    visibility: $visibility;
+    opacity: $opacity;
+  }
+}
+
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -43,27 +52,25 @@ import { isActive } from '@/state/store'
   top: 0;
   left: 0;
   z-index: 101;
-  width: 0; // Small screen, not active
   height: 100%;
   background-color: $sidebar-background-color;
   color: $sidebar-text-color;
   transition: width $transition-speed ease;
 
-  @media (min-width: $phone-screen-width) {
-    // Normal screem, not active.
-    width: $sidebar-minimised-width;
+  &.max-no-hover {
+    @include sidebarToggle($sidebar-maximised-width, visible, 1);
   }
-
-  &.isActive,
+  &.min-no-hover {
+    @include sidebarToggle($sidebar-minimised-width, hidden, 0);
+  }
+  &.min-hover {
+    @include sidebarToggle($sidebar-minimised-width, hidden, 0);
+  }
+  &.invis {
+    @include sidebarToggle(0, hidden, 0);
+  }
   &:hover {
-    // Active, no matter the screen
-    width: $sidebar-maximised-width;
-
-    .links li a h4,
-    .logo-container h1 {
-      opacity: 1;
-      visibility: visible;
-    }
+    @include sidebarToggle($sidebar-maximised-width, visible, 1);
   }
 
   .links {
@@ -80,8 +87,6 @@ import { isActive } from '@/state/store'
 
         h4 {
           font-weight: $nav-button-text-font-weight;
-          visibility: hidden;
-          opacity: 0;
           margin-left: $nav-button-text-margin-left;
           transition:
             opacity $transition-speed ease-out,
@@ -113,8 +118,6 @@ import { isActive } from '@/state/store'
       font-size: $header-font-size;
       padding: $header-padding;
       text-align: center;
-      opacity: 0;
-      visibility: hidden;
       transition:
         opacity $transition-speed ease-out,
         visibility $transition-speed ease-out;

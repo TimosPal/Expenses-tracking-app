@@ -1,12 +1,66 @@
 <script setup>
-import { isActive } from '@/state/store'
+import { isActive, toggleClass } from '@/state/store'
+
+import { onMounted, onUnmounted, watch } from 'vue'
+
+let firstTimeSmall = true
+let firstTimeBig = true
+function getToggleClass() {
+  if (window.innerWidth >= 600) {
+    if (firstTimeBig) {
+      // When resizing from small to big -> activate.
+      isActive.value = true
+      firstTimeBig = false
+      firstTimeSmall = true
+    }
+    if (isActive.value) {
+      // Max mode sidebar. Not hovering.
+      return 'max-no-hover'
+    } else {
+      // Min mode sidebar. Not hovering.
+      return 'min-no-hover'
+    }
+  } else {
+    if (firstTimeSmall) {
+      // When resizing from big to small -> de-activate.
+      isActive.value = false
+      firstTimeSmall = false
+      firstTimeBig = true
+    }
+    if (isActive.value) {
+      // Min mode sidebar. Hovering.
+      return 'min-hover'
+    } else {
+      // Invisible.
+      return 'invis'
+    }
+  }
+}
+
+toggleClass.value = getToggleClass() // TODO: better init (?)
+
+const handleResize = () => {
+  toggleClass.value = getToggleClass()
+}
+
+onMounted(() => {
+  window.addEventListener('resize', handleResize)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', handleResize)
+})
+
+watch(isActive, () => {
+  toggleClass.value = getToggleClass()
+})
 </script>
 
 <template>
   <div class="app">
     <TopBar />
     <SideBar />
-    <div class="main-body" :class="{ isActive: isActive }">
+    <div class="main-body" :class="toggleClass">
       <RouterView />
     </div>
   </div>
@@ -17,12 +71,9 @@ import { isActive } from '@/state/store'
 @import '@/assets/styles/components/topbar';
 
 .main-body {
-  // Used for sidebar resizing.
   position: fixed;
   top: $topbar-height;
-  left: 0;
   height: calc(100vh - $topbar-height);
-  width: calc(100vw);
 
   overflow-x: hidden;
   overflow-y: auto;
@@ -35,17 +86,18 @@ import { isActive } from '@/state/store'
 
   transition: left $transition-speed ease;
 
-  @media (min-width: $phone-screen-width) {
-    // Normal screem, not active.
+  &.max-no-hover {
+    left: $sidebar-maximised-width;
+    width: calc(100vw - $sidebar-maximised-width);
+  }
+  &.min-no-hover {
     left: $sidebar-minimised-width;
     width: calc(100vw - $sidebar-minimised-width);
-
-    &.isActive {
-      // Only push page elements if in normal screen + activated.
-      // In phone mode, sidebar is hovering the page.
-      left: $sidebar-maximised-width;
-      width: calc(100vw - $sidebar-maximised-width);
-    }
+  }
+  &.min-hover,
+  &.invis {
+    left: 0;
+    width: calc(100vw);
   }
 }
 </style>

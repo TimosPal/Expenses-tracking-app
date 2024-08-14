@@ -1,5 +1,5 @@
 <script setup>
-import { isActive } from '@/state/store'
+import { isActive, toggleClass } from '@/state/store'
 import { computed } from 'vue'
 
 function toggle() {
@@ -11,7 +11,7 @@ const iconClass = computed(() => (isActive.value ? 'pi pi-bars' : 'pi pi-times')
 
 <template>
   <header class="app-header">
-    <div class="container" :class="{ isActive: isActive }">
+    <div class="container" :class="toggleClass">
       <button @click="toggle">
         <i :class="iconClass"></i>
       </button>
@@ -40,17 +40,17 @@ const iconClass = computed(() => (isActive.value ? 'pi pi-bars' : 'pi pi-times')
 
   .container {
     transition: margin $transition-speed ease;
-    margin-left: 0; // Small screen, not active
     padding: $container-padding;
 
-    @media (min-width: $phone-screen-width) {
-      // Normal screem, not active.
+    &.max-no-hover {
+      margin-left: $sidebar-maximised-width;
+    }
+    &.min-no-hover,
+    &.min-hover {
       margin-left: $sidebar-minimised-width;
     }
-
-    &.isActive {
-      // Active, no matter the screen
-      margin-left: $sidebar-maximised-width;
+    &.invis {
+      margin-left: 0;
     }
 
     button {
