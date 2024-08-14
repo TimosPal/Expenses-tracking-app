@@ -1,5 +1,5 @@
 <script setup>
-import { isActive, toggleClass } from '@/state/store'
+import { toggleClass } from '@/state/store'
 </script>
 
 <template>

@@ -6,7 +6,8 @@ import { onMounted, onUnmounted, watch } from 'vue'
 let firstTimeSmall = true
 let firstTimeBig = true
 function getToggleClass() {
-  if (window.innerWidth >= 600) {
+  const phoneScreenWidth = 600
+  if (window.innerWidth >= phoneScreenWidth) {
     if (firstTimeBig) {
       // When resizing from small to big -> activate.
       isActive.value = true
