@@ -3,40 +3,48 @@ import { computed, defineProps } from 'vue'
 
 const props = defineProps(['arg1', 'arg2', 'resultOptions'])
 
-const remaining = computed(() => props.arg2.value - props.arg1.value)
-// A result might have positive or negative meaning
-// so we pass the inverse option to decide for each case.
+const remaining = computed(() => {
+  // Only point in calculating this value if both props exist.
+  if (props.arg1 && props.arg2) {
+    return props.arg2.value - props.arg1.value
+  }
+  return 0
+})
+
 const getClassOrName = (inverse, positive, negative) => {
+  // A result might have positive or negative meaning
+  // so we pass the inverse option to decide for each case.
   return remaining.value >= 0 ? (inverse ? positive : negative) : inverse ? negative : positive
 }
 
 const colorClass = computed(() =>
-  getClassOrName(props.resultOptions.inverseMeaning, 'positive', 'negative')
+  remaining.value == 0
+    ? 'neutral'
+    : getClassOrName(props.resultOptions?.inverseMeaning ?? null, 'positive', 'negative')
 )
 const resultName = computed(() =>
   getClassOrName(
-    props.resultOptions.inverseMeaning,
-    props.resultOptions.positiveName,
-    props.resultOptions.negativeName
+    // Incase of missing props pass null.
+    props.resultOptions?.inverseMeaning ?? null,
+    props.resultOptions?.positiveName ?? null,
+    props.resultOptions?.negativeName ?? null
   )
 )
 </script>
 
 <template>
   <div class="info-display">
-    <div class="info">
-      <div class="info-container">
-        <h4>{{ arg1.name }}</h4>
-        <div class="actualValue">{{ arg1.value }}$</div>
-      </div>
-      <div class="info-container">
-        <h4>{{ arg2.name }}</h4>
-        <div class="budgetValue">{{ arg2.value }}$</div>
-      </div>
-      <div class="info-container">
-        <h4>{{ resultName }}</h4>
-        <div class="budgetValue" :class="colorClass">{{ Math.abs(remaining) }}$</div>
-      </div>
+    <div v-if="arg1 != null" class="info-container">
+      <h4>{{ arg1.name }}</h4>
+      <div class="value">{{ arg1.value }}$</div>
+    </div>
+    <div v-if="arg2 != null" class="info-container">
+      <h4>{{ arg2.name }}</h4>
+      <div class="value">{{ arg2.value }}$</div>
+    </div>
+    <div v-if="resultOptions != null" class="info-container">
+      <h4>{{ resultName }}</h4>
+      <div class="value" :class="colorClass">{{ Math.abs(remaining) }}$</div>
     </div>
   </div>
 </template>
@@ -46,34 +54,32 @@ const resultName = computed(() =>
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
 
-  .info {
+  min-width: 10rem;
+
+  .info-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
 
-    .info-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    margin: 0.5rem;
 
-      margin: 0.5rem;
+    h4 {
+      font-size: 0.9rem;
+      margin-bottom: 0.1rem;
+      color: $secondary-color-shade;
+    }
 
-      h4 {
-        font-size: 0.9rem;
-        margin-bottom: 0.1rem;
-        color: $secondary-color-shade;
-      }
-
-      .actualValue,
-      .budgetValue {
-        font-size: 1.2rem;
-        font-weight: 700px;
-      }
+    .value {
+      font-size: 1.2rem;
+      font-weight: 700px;
     }
   }
 }
 
-.positive {
+.positive,
+.neutral {
   color: $positive-color;
 }
 

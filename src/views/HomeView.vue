@@ -13,7 +13,7 @@ import InfoDisplay from '@/components/InfoDisplay.vue'
     <div class="financial-info-overview">
       <card headerTitle="Income">
         <InfoDisplay
-          :arg1="{ name: 'Current', value: 200 }"
+          :arg1="{ name: 'Current', value: 990 }"
           :arg2="{ name: 'Target', value: 90 }"
           :resultOptions="{
             positiveName: 'Extra',
@@ -26,7 +26,7 @@ import InfoDisplay from '@/components/InfoDisplay.vue'
       <card headerTitle="Expenses">
         <InfoDisplay
           :arg1="{ name: 'Current', value: 300 }"
-          :arg2="{ name: 'Target', value: 900 }"
+          :arg2="{ name: 'Budget', value: 300 }"
           :resultOptions="{
             positiveName: 'Remaining',
             negativeName: 'Extra',
