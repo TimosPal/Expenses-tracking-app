@@ -13,6 +13,7 @@ $white: rgba(255, 255, 255, 1);
 $red-crayola: rgba(232, 72, 85, 1);
 $oxford-blue: rgba(0, 30, 61, 1);
 $berkeley-blue: rgba(0, 51, 102, 1);
+$emerald: rgba(12, 206, 107, 1);
 
 $no-color: rgba(0, 0, 0, 0);
 $shadow-color: rgba(0, 0, 0, 0.1);
@@ -23,3 +24,8 @@ $primary-color-shader: $ghost-white;
 $secondary-color: $oxford-blue;
 $secondary-color-shade: $berkeley-blue;
 $standout-color: $red-crayola;
+$standout-color-2: $emerald;
+
+// Specific use cases:
+$positive-color: $standout-color-2;
+$negative-color: $standout-color;

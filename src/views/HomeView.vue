@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+import InfoDisplay from '@/components/InfoDisplay.vue'
+</script>
 
 <template>
   <main class="home-page">
@@ -10,10 +12,36 @@
 
     <div class="financial-info-overview">
       <card headerTitle="Income">
-        <InfoDisplay actualValue="90" budgetValue="200" />
+        <InfoDisplay
+          :arg1="{ name: 'Current', value: 200 }"
+          :arg2="{ name: 'Target', value: 90 }"
+          :resultOptions="{
+            positiveName: 'Extra',
+            negativeName: 'Remaining',
+            inverseMeaning: false
+          }"
+        >
+        </InfoDisplay>
       </card>
       <card headerTitle="Expenses">
-        <InfoDisplay actualValue="280" budgetValue="400" />
+        <InfoDisplay
+          :arg1="{ name: 'Current', value: 300 }"
+          :arg2="{ name: 'Target', value: 900 }"
+          :resultOptions="{
+            positiveName: 'Remaining',
+            negativeName: 'Extra',
+            inverseMeaning: true
+          }"
+        >
+        </InfoDisplay>
+      </card>
+      <card headerTitle="Debts">
+        <InfoDisplay
+          :arg1="{ name: 'owed', value: 90 }"
+          :arg2="{ name: 'owes', value: 900 }"
+          :resultOptions="{ positiveName: 'Gain', negativeName: 'Loss', inverseMeaning: false }"
+        >
+        </InfoDisplay>
       </card>
     </div>
   </main>
