@@ -86,7 +86,7 @@ import { toggleClass } from '@/state/store'
         color: inherit;
 
         h4 {
-          font-weight: $nav-button-text-font-weight;
+          font-weight: normal;
           margin-left: $nav-button-text-margin-left;
           transition:
             opacity $transition-speed ease-out,

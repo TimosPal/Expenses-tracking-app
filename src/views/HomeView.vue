@@ -10,6 +10,7 @@ import InfoDisplay from '@/components/InfoDisplay.vue'
       <h5>General overview</h5>
     </div>
 
+    <DateRange />
     <div class="financial-info-overview">
       <card headerTitle="Income">
         <InfoDisplay
@@ -68,5 +69,7 @@ import InfoDisplay from '@/components/InfoDisplay.vue'
   display: flex;
   flex-direction: row;
   justify-content: center;
+
+  flex-wrap: wrap;
 }
 </style>

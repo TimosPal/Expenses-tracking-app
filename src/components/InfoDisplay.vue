@@ -55,8 +55,9 @@ const resultName = computed(() =>
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
 
-  min-width: 10rem;
+  min-width: 12rem;
 
   .info-container {
     display: flex;
@@ -69,11 +70,12 @@ const resultName = computed(() =>
       font-size: 0.9rem;
       margin-bottom: 0.1rem;
       color: $secondary-color-shade;
+      font-weight: bolder;
     }
 
     .value {
       font-size: 1.2rem;
-      font-weight: 700px;
+      font-weight: normal;
     }
   }
 }
