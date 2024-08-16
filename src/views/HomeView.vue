@@ -3,13 +3,7 @@ import InfoDisplay from '@/components/InfoDisplay.vue'
 </script>
 
 <template>
-  <main class="home-page">
-    <div class="page-header">
-      <h2>Dashboard</h2>
-      <hr />
-      <h5>General overview</h5>
-    </div>
-
+  <Page title="Dashboard" subtitle="General overview">
     <DateRange />
     <div class="financial-info-overview">
       <card headerTitle="Income">
@@ -45,26 +39,10 @@ import InfoDisplay from '@/components/InfoDisplay.vue'
         </InfoDisplay>
       </card>
     </div>
-  </main>
+  </Page>
 </template>
 
 <style lang="scss" scoped>
-.page-header {
-  margin-bottom: 2rem;
-
-  h2 {
-    color: $secondary-color;
-  }
-
-  h5 {
-    color: $secondary-color-shade;
-  }
-
-  hr {
-    width: 8rem;
-  }
-}
-
 .financial-info-overview {
   display: flex;
   flex-direction: row;

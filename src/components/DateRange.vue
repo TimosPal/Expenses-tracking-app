@@ -176,7 +176,17 @@ watch(toDate, () => {
       margin: 0.3rem;
 
       input {
+        all: unset;
+
         font-size: 1rem;
+        padding: 0.1rem;
+        width: 8rem;
+
+        color: $secondary-color;
+        background-color: $primary-color;
+
+        border-radius: 0.2rem;
+        border: 2px solid $secondary-color;
       }
 
       h4 {

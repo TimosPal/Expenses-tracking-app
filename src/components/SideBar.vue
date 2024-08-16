@@ -23,9 +23,9 @@ function navButtonHandler() {
         </router-link>
       </li>
       <li>
-        <router-link to="Options">
-          <i class="pi pi-cog"></i>
-          <h4>Options</h4>
+        <router-link to="Expenses">
+          <i class="pi pi-wallet"></i>
+          <h4>Expenses</h4>
         </router-link>
       </li>
       <li>
