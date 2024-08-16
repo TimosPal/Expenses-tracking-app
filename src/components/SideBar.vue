@@ -1,5 +1,13 @@
 <script setup>
-import { toggleClass } from '@/state/store'
+import { toggleClass, isActive } from '@/state/store'
+
+function navButtonHandler() {
+  if (toggleClass.value == 'min-hover') {
+    // TODO: fix manual variable setting.
+    toggleClass.value = 'invis'
+    isActive.value = false
+  }
+}
 </script>
 
 <template>
@@ -7,7 +15,7 @@ import { toggleClass } from '@/state/store'
     <div class="logo-container">
       <h1>Tracking</h1>
     </div>
-    <ul class="links">
+    <ul class="links" @click="navButtonHandler">
       <li>
         <router-link to="/">
           <i class="pi pi-home"></i>
@@ -62,15 +70,15 @@ import { toggleClass } from '@/state/store'
   }
   &.min-no-hover {
     @include sidebarToggle($sidebar-minimised-width, hidden, 0);
+    &:hover {
+      @include sidebarToggle($sidebar-maximised-width, visible, 1);
+    }
   }
   &.min-hover {
-    @include sidebarToggle($sidebar-minimised-width, hidden, 0);
+    @include sidebarToggle($sidebar-maximised-width, visible, 1);
   }
   &.invis {
     @include sidebarToggle(0, hidden, 0);
-  }
-  &:hover {
-    @include sidebarToggle($sidebar-maximised-width, visible, 1);
   }
 
   .links {

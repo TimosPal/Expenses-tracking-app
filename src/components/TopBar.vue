@@ -45,9 +45,11 @@ const iconClass = computed(() => (isActive.value ? 'pi pi-bars' : 'pi pi-times')
     &.max-no-hover {
       margin-left: $sidebar-maximised-width;
     }
-    &.min-no-hover,
-    &.min-hover {
+    &.min-no-hover {
       margin-left: $sidebar-minimised-width;
+    }
+    &.min-hover {
+      margin-left: $sidebar-maximised-width;
     }
     &.invis {
       margin-left: 0;

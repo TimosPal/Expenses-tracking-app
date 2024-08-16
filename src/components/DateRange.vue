@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 function dateObjToStringFormat(date) {
   return date.toISOString().split('T')[0]
@@ -17,6 +17,7 @@ function handlePreset(presetID) {
     return
   }
 
+  presetJustSet = true
   activePreset.value = presetID
 
   const fromDateObj = new Date()
@@ -45,11 +46,30 @@ function handlePreset(presetID) {
   toDate.value = dateObjToStringFormat(toDateObj)
 }
 
+function dateChange() {
+  if (presetJustSet) {
+    // Change triggered from preset.
+    presetJustSet = false
+  } else {
+    // Change triggered from custom date input.
+    // Need to unset activated button.
+    activePreset.value = ''
+  }
+}
+
 // TODO: implement min, max values in date pickers.
+let presetJustSet = false
 const fromDate = ref('')
 const toDate = ref('')
 const activePreset = ref('')
 handlePreset('month')
+
+watch(fromDate, () => {
+  dateChange()
+})
+watch(toDate, () => {
+  dateChange()
+})
 </script>
 
 <template>
@@ -110,6 +130,8 @@ handlePreset('month')
   .presets {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
 
     button {
       all: unset;
@@ -142,6 +164,8 @@ handlePreset('month')
   .custom {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
 
     .from,
     .to {
