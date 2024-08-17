@@ -1,7 +1,7 @@
 <script setup>
 import { computed, defineProps } from 'vue'
 
-const props = defineProps(['arg1', 'arg2', 'resultOptions'])
+const props = defineProps(['headerTitle', 'arg1', 'arg2', 'resultOptions'])
 
 const remaining = computed(() => {
   // Only point in calculating this value if both props exist.
@@ -33,20 +33,22 @@ const resultName = computed(() =>
 </script>
 
 <template>
-  <div class="info-display">
-    <div v-if="arg1 != null" class="info-container">
-      <h4>{{ arg1.name }}</h4>
-      <div class="value">{{ arg1.value }}$</div>
+  <card :headerTitle="headerTitle">
+    <div class="info-display">
+      <div v-if="arg1 != null" class="info-container">
+        <h4>{{ arg1.name }}</h4>
+        <div class="value">{{ arg1.value }}$</div>
+      </div>
+      <div v-if="arg2 != null" class="info-container">
+        <h4>{{ arg2.name }}</h4>
+        <div class="value">{{ arg2.value }}$</div>
+      </div>
+      <div v-if="resultOptions != null" class="info-container">
+        <h4>{{ resultName }}</h4>
+        <div class="value" :class="colorClass">{{ Math.abs(remaining) }}$</div>
+      </div>
     </div>
-    <div v-if="arg2 != null" class="info-container">
-      <h4>{{ arg2.name }}</h4>
-      <div class="value">{{ arg2.value }}$</div>
-    </div>
-    <div v-if="resultOptions != null" class="info-container">
-      <h4>{{ resultName }}</h4>
-      <div class="value" :class="colorClass">{{ Math.abs(remaining) }}$</div>
-    </div>
-  </div>
+  </card>
 </template>
 
 <style lang="scss" scoped>

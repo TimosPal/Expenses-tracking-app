@@ -11,6 +11,7 @@ const deleteExpense = (index) => {
 
 <template>
   <Page title="Expenses" subtitle="Where expenses are added">
+    <ExpenseForm></ExpenseForm>
     <div class="table-main">
       <table>
         <thead>
@@ -25,17 +26,12 @@ const deleteExpense = (index) => {
         <tbody>
           <tr v-for="(expense, index) in expenses" :key="index">
             <td>{{ expense.date }}</td>
-            <td>
-              <select v-model="expense.category">
-                <option value="Food">Food</option>
-                <option value="Drink">Drink</option>
-                <option value="Transport">Transport</option>
-              </select>
-            </td>
+            <td>{{ expense.category }}</td>
             <td>{{ expense.money }}</td>
             <td>{{ expense.method }}</td>
             <td>
-              <button @click="deleteExpense(index)">Delete</button>
+              <button @click="deleteExpense(index)"><i class="pi pi-pencil"></i></button>
+              <button @click="deleteExpense(index)"><i class="pi pi-trash"></i></button>
             </td>
           </tr>
         </tbody>
@@ -65,6 +61,11 @@ const deleteExpense = (index) => {
         font-weight: bold;
         font-size: 1rem;
       }
+
+      th:last-child {
+        text-align: right;
+        padding-right: 2rem;
+      }
     }
 
     tbody {
@@ -81,6 +82,16 @@ const deleteExpense = (index) => {
         border-bottom: 1px solid #ddd;
         font-size: 1rem;
         color: $secondary-color-shade;
+
+        button {
+          all: unset;
+          margin: 0 0.3rem;
+        }
+
+        &:last-child {
+          text-align: right;
+          padding-right: 2rem;
+        }
       }
 
       tr:last-child td {
