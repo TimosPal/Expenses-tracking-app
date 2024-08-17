@@ -2,9 +2,11 @@
 import { ref } from 'vue'
 import dummyData from '@/assets/data/dummyData.json'
 
-console.log(dummyData)
-
 const expenses = ref(dummyData)
+
+const deleteExpense = (index) => {
+  expenses.value.splice(index, 1)
+}
 </script>
 
 <template>
