@@ -1,0 +1,26 @@
+[
+  {
+    "date": "04/01/2024",
+    "category": "Food",
+    "money": "$5.00",
+    "method": "Card"
+  },
+  {
+    "date": "03/01/2024",
+    "category": "Transport",
+    "money": "$20.00",
+    "method": "Card"
+  },
+  {
+    "date": "02/01/2024",
+    "category": "Food",
+    "money": "$50.00",
+    "method": "Card"
+  },
+  {
+    "date": "01/01/2024",
+    "category": "Drink",
+    "money": "$1.00",
+    "method": "Card"
+  }
+]

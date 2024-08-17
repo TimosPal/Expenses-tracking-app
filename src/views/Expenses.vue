@@ -1,4 +1,11 @@
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+import dummyData from '@/assets/data/dummyData.json'
+
+console.log(dummyData)
+
+const expenses = ref(dummyData)
+</script>
 
 <template>
   <Page title="Expenses" subtitle="Where expenses are added">
@@ -14,44 +21,20 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1/1/2024</td>
+          <tr v-for="(expense, index) in expenses" :key="index">
+            <td>{{ expense.date }}</td>
             <td>
-              <select name="" id="">
+              <select v-model="expense.category">
                 <option value="Food">Food</option>
                 <option value="Drink">Drink</option>
                 <option value="Transport">Transport</option>
               </select>
             </td>
-            <td>$2.00</td>
-            <td>Cash</td>
-            <td>Edit | Delete</td>
-          </tr>
-          <tr>
-            <td>5/10/2024</td>
+            <td>{{ expense.money }}</td>
+            <td>{{ expense.method }}</td>
             <td>
-              <select name="" id="">
-                <option value="Food">Food</option>
-                <option value="Drink">Drink</option>
-                <option value="Transport">Transport</option>
-              </select>
+              <button @click="deleteExpense(index)">Delete</button>
             </td>
-            <td>$5.00</td>
-            <td>Card</td>
-            <td>Edit | Delete</td>
-          </tr>
-          <tr>
-            <td>13/12/2024</td>
-            <td>
-              <select name="" id="">
-                <option value="Food">Food</option>
-                <option value="Drink">Drink</option>
-                <option value="Transport">Transport</option>
-              </select>
-            </td>
-            <td>$12.00</td>
-            <td>Card</td>
-            <td>Edit | Delete</td>
           </tr>
         </tbody>
       </table>
