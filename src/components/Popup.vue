@@ -1,7 +1,6 @@
 <script setup></script>
 
 <template>
-  <FogScreen />
   <div class="popup-window">
     <slot></slot>
   </div>

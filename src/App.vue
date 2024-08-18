@@ -1,5 +1,5 @@
 <script setup>
-import { isActive, toggleClass, popUpComponent } from '@/state/store'
+import { sidebarIsActive, sidebarModeClass, popup } from '@/state/store'
 import { onMounted, onUnmounted, watch } from 'vue'
 
 let firstTimeSmall = true
@@ -9,11 +9,11 @@ function getToggleClass() {
   if (window.innerWidth >= phoneScreenWidth) {
     if (firstTimeBig) {
       // When resizing from small to big -> activate.
-      isActive.value = true
+      sidebarIsActive.value = true
       firstTimeBig = false
       firstTimeSmall = true
     }
-    if (isActive.value) {
+    if (sidebarIsActive.value) {
       // Max mode sidebar. Not hovering.
       return 'max-no-hover'
     } else {
@@ -23,11 +23,11 @@ function getToggleClass() {
   } else {
     if (firstTimeSmall) {
       // When resizing from big to small -> de-activate.
-      isActive.value = false
+      sidebarIsActive.value = false
       firstTimeSmall = false
       firstTimeBig = true
     }
-    if (isActive.value) {
+    if (sidebarIsActive.value) {
       // Min mode sidebar. Hovering.
       return 'min-hover'
     } else {
@@ -37,10 +37,10 @@ function getToggleClass() {
   }
 }
 
-toggleClass.value = getToggleClass() // TODO: better init (?)
+sidebarModeClass.value = getToggleClass() // TODO: better init (?)
 
 const handleResize = () => {
-  toggleClass.value = getToggleClass()
+  sidebarModeClass.value = getToggleClass()
 }
 
 onMounted(() => {
@@ -51,21 +51,21 @@ onUnmounted(() => {
   window.removeEventListener('resize', handleResize)
 })
 
-watch(isActive, () => {
-  toggleClass.value = getToggleClass()
+watch(sidebarIsActive, () => {
+  sidebarModeClass.value = getToggleClass()
 })
 </script>
 
 <template>
   <div class="app">
-    <transition name="fade">
-      <Popup v-if="popUpComponent !== null">
-        <component :is="popUpComponent" />
-      </Popup>
-    </transition>
+    <Popup v-if="popup.isActive.value === true">
+      <component :is="popup.component" />
+    </Popup>
+    <FogScreen />
+
     <TopBar />
     <SideBar />
-    <div class="main-body" :class="toggleClass">
+    <div class="main-body" :class="sidebarModeClass">
       <RouterView />
     </div>
   </div>
@@ -74,21 +74,6 @@ watch(isActive, () => {
 <style lang="scss" scoped>
 @import '@/assets/styles/components/sidebar';
 @import '@/assets/styles/components/topbar';
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.fade-enter-to,
-.fade-leave-from {
-  opacity: 1;
-}
 
 .main-body {
   position: fixed;

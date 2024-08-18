@@ -1,17 +1,17 @@
 <script setup>
-import { isActive, toggleClass } from '@/state/store'
+import { sidebarIsActive, sidebarModeClass } from '@/state/store'
 import { computed } from 'vue'
 
 function toggle() {
-  isActive.value = !isActive.value
+  sidebarIsActive.value = !sidebarIsActive.value
 }
 
-const iconClass = computed(() => (isActive.value ? 'pi pi-bars' : 'pi pi-times'))
+const iconClass = computed(() => (sidebarIsActive.value ? 'pi pi-bars' : 'pi pi-times'))
 </script>
 
 <template>
   <header class="app-header">
-    <div class="container" :class="toggleClass">
+    <div class="container" :class="sidebarModeClass">
       <button @click="toggle">
         <i :class="iconClass"></i>
       </button>

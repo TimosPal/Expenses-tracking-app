@@ -1,10 +1,24 @@
-<script setup></script>
+<script setup>
+import { fogIsActivated } from '@/state/store'
+</script>
 
 <template>
-  <div class="screen-blur"></div>
+  <transition>
+    <div class="screen-blur" v-if="fogIsActivated"></div>
+  </transition>
 </template>
 
 <style lang="scss" scoped>
+.v-enter-active,
+.v-leave-active {
+  transition: opacity $transition-speed ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+
 .screen-blur {
   position: fixed;
   top: 0;

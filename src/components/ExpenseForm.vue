@@ -1,44 +1,8 @@
-<template>
-  <div class="expense-form">
-    <h2>Add New Expense</h2>
-    <form @submit.prevent="submitForm">
-      <div class="form-group">
-        <label for="date">Date:</label>
-        <input v-model="form.date" type="date" id="date" required />
-      </div>
-      <div class="form-group">
-        <label for="category">Category:</label>
-        <select v-model="form.category" id="category" required>
-          <option>Food</option>
-          <option>Transport</option>
-          <option>Entertainment</option>
-          <option>Utilities</option>
-          <option>Others</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="money">Amount:</label>
-        <input v-model="form.money" type="text" id="money" placeholder="$0.00" required />
-      </div>
-      <div class="form-group">
-        <label for="method">Payment Method:</label>
-        <input
-          v-model="form.method"
-          type="text"
-          id="method"
-          placeholder="e.g., Card (Revolut)"
-          required
-        />
-      </div>
-      <button type="submit">Add Expense</button>
-    </form>
-  </div>
-</template>
-
 <script setup>
 import { ref } from 'vue'
+import { popup } from '@/state/store'
 
-// Define the form data structure
+// Define form structure.
 const form = ref({
   date: '',
   category: 'Food',
@@ -46,23 +10,59 @@ const form = ref({
   method: 'Card (Revolut)'
 })
 
-// Use the emit function to emit events
-const emit = defineEmits(['submit-expense'])
-
-// Function to submit the form and emit the data
-const submitForm = () => {
-  emit('submit-expense', { ...form.value })
-  // Clear the form fields
-  form.value = {
-    date: '',
-    category: 'Food',
-    money: '',
-    method: 'Card (Revolut)'
-  }
-}
+const submitForm = () => {}
 </script>
 
-<style scoped>
+<template>
+  <Transition>
+    <div class="expense-form" v-if="popUpComponent !== null">
+      <h2>Add New Expense</h2>
+      <form @submit.prevent="submitForm">
+        <div class="form-group">
+          <label for="date">Date:</label>
+          <input v-model="form.date" type="date" id="date" required />
+        </div>
+        <div class="form-group">
+          <label for="category">Category:</label>
+          <select v-model="form.category" id="category" required>
+            <option>Food</option>
+            <option>Transport</option>
+            <option>Entertainment</option>
+            <option>Utilities</option>
+            <option>Others</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="money">Amount:</label>
+          <input v-model="form.money" type="text" id="money" placeholder="$0.00" required />
+        </div>
+        <div class="form-group">
+          <label for="method">Payment Method:</label>
+          <input
+            v-model="form.method"
+            type="text"
+            id="method"
+            placeholder="e.g., Card (Revolut)"
+            required
+          />
+        </div>
+        <button type="submit">Add Expense</button>
+      </form>
+    </div>
+  </Transition>
+</template>
+
+<style lang="scss" scoped>
+.v-enter-active,
+.v-leave-active {
+  transition: opacity $transition-speed ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+
 .expense-form {
   max-width: 500px;
   margin: 20px auto;

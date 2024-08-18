@@ -1,8 +1,10 @@
 import { ref } from 'vue'
 
-// Toggle state.
-const isActive = ref(true)
-const toggleClass = ref('')
-const popUpComponent = ref(null)
+// Toggle state of sidebar.
+const sidebarIsActive = ref(true)
+const sidebarModeClass = ref('')
+// Needed so the effects are applied at top level.
+const popup = { isActive: ref(false), component: null }
+const fogIsActivated = ref(false)
 
-export { isActive, toggleClass, popUpComponent }
+export { sidebarIsActive, sidebarModeClass, popup, fogIsActivated }

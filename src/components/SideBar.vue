@@ -1,17 +1,17 @@
 <script setup>
-import { toggleClass, isActive } from '@/state/store'
+import { sidebarModeClass, sidebarIsActive } from '@/state/store'
 
 function navButtonHandler() {
-  if (toggleClass.value == 'min-hover') {
+  if (sidebarModeClass.value == 'min-hover') {
     // TODO: fix manual variable setting.
-    toggleClass.value = 'invis'
-    isActive.value = false
+    sidebarModeClass.value = 'invis'
+    sidebarIsActive.value = false
   }
 }
 </script>
 
 <template>
-  <aside class="sidebar" :class="toggleClass">
+  <aside class="sidebar" :class="sidebarModeClass">
     <div class="logo-container">
       <h1>Tracking</h1>
     </div>

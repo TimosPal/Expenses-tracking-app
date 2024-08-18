@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import dummyData from '@/assets/data/dummyData.json'
-import { popUpComponent } from '@/state/store'
+import { popup, fogIsActivated } from '@/state/store'
 import ExpenseForm from '@/components/ExpenseForm.vue'
 
 const expenses = ref(dummyData)
@@ -11,7 +11,9 @@ const deleteExpense = (index) => {
 }
 
 const addExpense = () => {
-  popUpComponent.value = ExpenseForm
+  popup.isActive.value = true
+  popup.component = ExpenseForm
+  fogIsActivated.value = true
 }
 </script>
 
