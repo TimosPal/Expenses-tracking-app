@@ -15,7 +15,7 @@ const submitForm = () => {}
 
 <template>
   <Transition>
-    <div class="expense-form" v-if="popUpComponent !== null">
+    <div class="expense-form" v-if="popup.isActive">
       <h2>Add New Expense</h2>
       <form @submit.prevent="submitForm">
         <div class="form-group">
