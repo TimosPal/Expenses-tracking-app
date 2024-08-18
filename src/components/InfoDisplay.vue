@@ -33,7 +33,7 @@ const resultName = computed(() =>
 </script>
 
 <template>
-  <card :headerTitle="headerTitle">
+  <Card :headerTitle="headerTitle">
     <div class="info-display">
       <div v-if="arg1 != null" class="info-container">
         <h4>{{ arg1.name }}</h4>
@@ -48,7 +48,7 @@ const resultName = computed(() =>
         <div class="value" :class="colorClass">{{ Math.abs(remaining) }}$</div>
       </div>
     </div>
-  </card>
+  </Card>
 </template>
 
 <style lang="scss" scoped>

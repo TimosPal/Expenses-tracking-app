@@ -1,17 +1,26 @@
 <script setup>
 import { ref } from 'vue'
 import dummyData from '@/assets/data/dummyData.json'
+import { popUpComponent } from '@/state/store'
+import ExpenseForm from '@/components/ExpenseForm.vue'
 
 const expenses = ref(dummyData)
 
 const deleteExpense = (index) => {
   expenses.value.splice(index, 1)
 }
+
+const addExpense = () => {
+  popUpComponent.value = ExpenseForm
+}
 </script>
 
 <template>
   <Page title="Expenses" subtitle="Where expenses are added">
-    <ExpenseForm></ExpenseForm>
+    <div class="new-expense-input">
+      <h4>Add new expense:</h4>
+      <button @click="addExpense()"><i class="pi pi-plus"></i></button>
+    </div>
     <div class="table-main">
       <table>
         <thead>
@@ -41,6 +50,20 @@ const deleteExpense = (index) => {
 </template>
 
 <style lang="scss" scoped>
+.new-expense-input {
+  display: flex;
+  flex-direction: row;
+  margin: 1rem;
+
+  button {
+    all: unset;
+  }
+
+  h4 {
+    margin: 1rem;
+  }
+}
+
 .table-main {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;

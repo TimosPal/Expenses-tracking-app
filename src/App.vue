@@ -1,6 +1,5 @@
 <script setup>
-import { isActive, toggleClass } from '@/state/store'
-
+import { isActive, toggleClass, popUpComponent } from '@/state/store'
 import { onMounted, onUnmounted, watch } from 'vue'
 
 let firstTimeSmall = true
@@ -59,6 +58,11 @@ watch(isActive, () => {
 
 <template>
   <div class="app">
+    <transition name="fade">
+      <Popup v-if="popUpComponent !== null">
+        <component :is="popUpComponent" />
+      </Popup>
+    </transition>
     <TopBar />
     <SideBar />
     <div class="main-body" :class="toggleClass">
@@ -70,6 +74,21 @@ watch(isActive, () => {
 <style lang="scss" scoped>
 @import '@/assets/styles/components/sidebar';
 @import '@/assets/styles/components/topbar';
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-to,
+.fade-leave-from {
+  opacity: 1;
+}
 
 .main-body {
   position: fixed;
