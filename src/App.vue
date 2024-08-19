@@ -1,6 +1,7 @@
 <script setup>
 import { sidebarIsActive, sidebarModeClass, popup } from '@/state/store'
 import { onMounted, onUnmounted, watch } from 'vue'
+import ExpenseForm from './components/ExpenseForm.vue'
 
 let firstTimeSmall = true
 let firstTimeBig = true

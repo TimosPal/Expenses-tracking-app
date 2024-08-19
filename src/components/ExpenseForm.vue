@@ -1,5 +1,12 @@
 <script setup>
 import { ref } from 'vue'
+import { popup } from '@/state/store'
+
+function formAnimationOver() {
+  // Disable parent component after animaiton is finished
+  // to ensure transition element is still present.
+  popup.isActive.value = false
+}
 
 // Define form structure.
 const form = ref({
@@ -13,8 +20,8 @@ const submitForm = () => {}
 </script>
 
 <template>
-  <MoveTransition>
-    <Card>
+  <MoveTransition :onLeaveComplete="formAnimationOver">
+    <Card v-if="popup.componentIsActive.value === true">
       <div class="expense-form">
         <h2>Add new expense</h2>
         <form @submit.prevent="submitForm">

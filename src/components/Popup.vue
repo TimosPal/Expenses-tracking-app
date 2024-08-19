@@ -5,7 +5,7 @@ import { popup, fogIsActivated } from '@/state/store'
 const popupContainer = ref(null)
 
 function disablePopup() {
-  popup.isActive.value = false
+  popup.componentIsActive.value = false
   fogIsActivated.value = false
 }
 

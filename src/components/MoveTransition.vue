@@ -1,7 +1,23 @@
-<script setup></script>
+<script setup>
+import { defineProps } from 'vue'
+
+const props = defineProps(['onEnterComplete', 'onLeaveComplete'])
+
+const handleAfterEnter = () => {
+  if (props.onEnterComplete && typeof props.onEnterComplete === 'function') {
+    props.onEnterComplete()
+  }
+}
+
+const handleAfterLeave = () => {
+  if (props.onLeaveComplete && typeof props.onLeaveComplete === 'function') {
+    props.onLeaveComplete()
+  }
+}
+</script>
 
 <template>
-  <Transition name="move" appear>
+  <Transition name="move" @after-enter="handleAfterEnter" @after-leave="handleAfterLeave" appear>
     <slot></slot>
   </Transition>
 </template>
