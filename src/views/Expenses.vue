@@ -11,9 +11,9 @@ const deleteExpense = (index) => {
 }
 
 const addExpense = () => {
+  fogIsActivated.value = true
   popup.isActive.value = true
   popup.component = ExpenseForm
-  fogIsActivated.value = true
 }
 </script>
 
