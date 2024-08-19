@@ -1,10 +1,10 @@
 <script setup>
-import { fogIsActivated } from '@/state/store'
+import { fogIsActivated, zIndex } from '@/state/store'
 </script>
 
 <template>
   <FadeTransition>
-    <div class="screen-blur" v-if="fogIsActivated"></div>
+    <div class="screen-blur" v-if="fogIsActivated" :style="{ zIndex: zIndex }"></div>
   </FadeTransition>
 </template>
 
@@ -13,8 +13,6 @@ import { fogIsActivated } from '@/state/store'
   position: fixed;
   top: 0;
   left: 0;
-
-  z-index: 102;
 
   width: 100vw;
   height: 100vh;

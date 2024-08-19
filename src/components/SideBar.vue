@@ -1,11 +1,13 @@
 <script setup>
 import { sidebarModeClass, sidebarIsActive } from '@/state/store'
+import { disableFog } from '@/composables/UseFog'
 
 function navButtonHandler() {
   if (sidebarModeClass.value == 'min-hover') {
     // TODO: fix manual variable setting.
     sidebarModeClass.value = 'invis'
     sidebarIsActive.value = false
+    disableFog()
   }
 }
 </script>
@@ -59,7 +61,7 @@ function navButtonHandler() {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 101;
+  z-index: 102;
   height: 100%;
   background-color: $sidebar-background-color;
   color: $sidebar-text-color;

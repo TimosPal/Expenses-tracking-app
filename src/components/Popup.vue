@@ -1,18 +1,18 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-import { disablePopup } from '@/composables/UsePopup'
+import { disablePopupComponent } from '@/composables/UsePopup'
 
 const popupContainer = ref(null)
 
 function disablePopupMouse(event) {
   if (!popupContainer.value.contains(event.target)) {
-    disablePopup()
+    disablePopupComponent()
   }
 }
 
 function disablePopupEscapeKey(event) {
   if (event.key === 'Escape') {
-    disablePopup()
+    disablePopupComponent()
   }
 }
 

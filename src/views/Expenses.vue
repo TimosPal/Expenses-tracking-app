@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import dummyData from '@/assets/data/dummyData.json'
-import { popup, fogIsActivated } from '@/state/store'
+import { enablePopup } from '@/composables/UsePopup'
 import ExpenseForm from '@/components/ExpenseForm.vue'
 
 const expenses = ref(dummyData)
@@ -11,10 +11,7 @@ const deleteExpense = (index) => {
 }
 
 const addExpense = () => {
-  fogIsActivated.value = true
-  popup.isActive.value = true
-  popup.componentIsActive.value = true
-  popup.component = ExpenseForm
+  enablePopup(ExpenseForm)
 }
 </script>
 

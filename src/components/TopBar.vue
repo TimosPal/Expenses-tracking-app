@@ -1,9 +1,14 @@
 <script setup>
 import { sidebarIsActive, sidebarModeClass } from '@/state/store'
+import { enableFog } from '@/composables/UseFog'
 import { computed } from 'vue'
 
 function toggle() {
   sidebarIsActive.value = !sidebarIsActive.value
+  console.log(sidebarModeClass.value)
+  if (sidebarIsActive.value === true && sidebarModeClass.value === 'invis') {
+    enableFog(102)
+  }
 }
 
 const iconClass = computed(() => (sidebarIsActive.value ? 'pi pi-bars' : 'pi pi-times'))

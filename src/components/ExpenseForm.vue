@@ -1,14 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 import { popup } from '@/state/store'
-import { disablePopup } from '@/composables/UsePopup'
+import { disablePopupComponent, disablePopup } from '@/composables/UsePopup'
 import { dateObjToStringFormat } from '@/misc/DateUtils'
-
-function formAnimationOver() {
-  // Disable parent component after animaiton is finished
-  // to ensure transition element is still present.
-  popup.isActive.value = false
-}
 
 // Define form structure.
 const form = ref({
@@ -29,12 +23,12 @@ const submitForm = () => {
     paymentMethod: ''
   }
 
-  disablePopup()
+  disablePopupComponent()
 }
 </script>
 
 <template>
-  <MoveTransition :onLeaveComplete="formAnimationOver">
+  <MoveTransition :onLeaveComplete="disablePopup">
     <Card v-if="popup.componentIsActive.value === true">
       <div class="expense-form">
         <h2>Add new expense</h2>
@@ -68,7 +62,7 @@ const submitForm = () => {
             />
           </div>
           <div class="buttons">
-            <button type="button" @click="disablePopup">Cancel</button>
+            <button type="button" @click="disablePopupComponent">Cancel</button>
             <button type="submit">Add Expense</button>
           </div>
         </form>
