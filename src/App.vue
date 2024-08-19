@@ -1,7 +1,6 @@
 <script setup>
 import { sidebarIsActive, sidebarModeClass, popup } from '@/state/store'
 import { onMounted, onUnmounted, watch } from 'vue'
-import ExpenseForm from './components/ExpenseForm.vue'
 
 let firstTimeSmall = true
 let firstTimeBig = true
@@ -66,6 +65,7 @@ watch(sidebarIsActive, () => {
 
     <TopBar />
     <SideBar />
+
     <div class="main-body" :class="sidebarModeClass">
       <RouterView />
     </div>
@@ -86,7 +86,7 @@ watch(sidebarIsActive, () => {
 
   padding: $main-body-padding;
 
-  background-color: $primary-color-shader;
+  background-color: der$primary-color-shade;
 
   @include preset-shadow;
 

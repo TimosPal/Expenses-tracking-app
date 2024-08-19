@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 import { popup } from '@/state/store'
+import { disablePopup } from '@/composables/UsePopup'
+import { dateObjToStringFormat } from '@/misc/DateUtils'
 
 function formAnimationOver() {
   // Disable parent component after animaiton is finished
@@ -10,13 +12,25 @@ function formAnimationOver() {
 
 // Define form structure.
 const form = ref({
-  date: '',
-  category: 'Food',
+  date: String(dateObjToStringFormat(new Date())),
+  category: '',
   money: '',
-  method: 'Card (Revolut)'
+  method: ''
 })
 
-const submitForm = () => {}
+const submitForm = () => {
+  console.log('Form submitted:', form.value)
+
+  // Reset the form after submission
+  form.value = {
+    date: String(new Date()),
+    category: '',
+    amount: '',
+    paymentMethod: ''
+  }
+
+  disablePopup()
+}
 </script>
 
 <template>
@@ -49,11 +63,14 @@ const submitForm = () => {}
               v-model="form.method"
               type="text"
               id="method"
-              placeholder="e.g., Card (Revolut)"
+              placeholder="e.g. Card (Bank name)"
               required
             />
           </div>
-          <button type="submit">Add Expense</button>
+          <div class="buttons">
+            <button type="button" @click="disablePopup">Cancel</button>
+            <button type="submit">Add Expense</button>
+          </div>
         </form>
       </div>
     </Card>
@@ -63,59 +80,69 @@ const submitForm = () => {}
 <style lang="scss" scoped>
 .expense-form {
   padding: 1.5rem;
-  min-width: 10rem;
+  min-width: 35vw;
 
   h2 {
     text-align: center;
-    color: #333;
-    margin-bottom: 20px;
+    color: $secondary-color;
+    margin-bottom: 1rem;
   }
 
   form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-  }
+    gap: 1rem;
 
-  .form-group {
-    display: flex;
-    flex-direction: column;
-  }
+    .form-group {
+      display: flex;
+      flex-direction: column;
 
-  label {
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: #555;
-  }
+      label {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: $secondary-color;
+      }
 
-  input,
-  select {
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #ddd;
-    font-size: 1rem;
-    color: #333;
-  }
+      input,
+      select {
+        padding: 0.5rem;
+        border-radius: 0.3rem;
+        border: 1px solid #ddd;
+        font-size: 1rem;
+        color: #333;
+      }
 
-  input:focus,
-  select:focus {
-    outline: none;
-    border-color: #007bff;
-  }
+      input:focus,
+      select:focus {
+        outline: none;
+        border-color: $secondary-color-shade;
+      }
+    }
 
-  button {
-    padding: 12px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    font-size: 1rem;
-    cursor: pointer;
-    margin-top: 10px;
-  }
+    .buttons {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
 
-  button:hover {
-    background-color: #0056b3;
+      button {
+        padding: 12px;
+        background-color: $secondary-color;
+        color: $primary-color;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        cursor: pointer;
+        margin-top: 10px;
+
+        min-width: 5rem;
+        min-height: 1rem;
+
+        &:hover {
+          background-color: $secondary-color-shade;
+        }
+      }
+    }
   }
 }
 </style>

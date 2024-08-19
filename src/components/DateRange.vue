@@ -1,15 +1,6 @@
 <script setup>
 import { ref, watch } from 'vue'
-
-function dateObjToStringFormat(date) {
-  return date.toISOString().split('T')[0]
-}
-
-function getStartOfTheWeekDate(date) {
-  const day = date.getDay()
-  const diff = date.getDate() - (day === 0 ? 6 : day - 1) // adjust for Monday as start of the week
-  return new Date(date.setDate(diff))
-}
+import { dateObjToStringFormat, getStartOfTheWeekDate } from '@/misc/DateUtils'
 
 function handlePreset(presetID) {
   if (!presetID) return

@@ -1,13 +1,8 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-import { popup, fogIsActivated } from '@/state/store'
+import { disablePopup } from '@/composables/UsePopup'
 
 const popupContainer = ref(null)
-
-function disablePopup() {
-  popup.componentIsActive.value = false
-  fogIsActivated.value = false
-}
 
 function disablePopupMouse(event) {
   if (!popupContainer.value.contains(event.target)) {

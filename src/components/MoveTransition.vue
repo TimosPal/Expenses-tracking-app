@@ -37,6 +37,6 @@ const handleAfterLeave = () => {
 
 .move-leave-to {
   opacity: 0;
-  transform: translateY(100%);
+  transform: translateY(10%);
 }
 </style>
