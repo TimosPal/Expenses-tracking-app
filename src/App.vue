@@ -2,6 +2,7 @@
 import { sidebarIsActive, sidebarModeClass, popup } from '@/state/store'
 import { onMounted, onUnmounted, watch } from 'vue'
 import { enableSidebar, disableSidebar, setSidebarMode } from '@/state/sidebar'
+import { disableFog } from '@/state/fog'
 
 let firstTimeSmall = true
 let firstTimeBig = true
@@ -11,6 +12,7 @@ function getToggleClass() {
     if (firstTimeBig) {
       // When resizing from small to big -> activate.
       enableSidebar()
+      disableFog()
       firstTimeBig = false
       firstTimeSmall = true
     }
@@ -30,7 +32,7 @@ function getToggleClass() {
     }
     if (sidebarIsActive.value) {
       // Min mode sidebar. Hovering.
-      return 'min-hover'
+      return 'max-hover'
     } else {
       // Invisible.
       return 'invis'
@@ -101,7 +103,7 @@ watch(sidebarIsActive, () => {
     left: $sidebar-minimised-width;
     width: calc(100vw - $sidebar-minimised-width);
   }
-  &.min-hover,
+  &.max-hover,
   &.invis {
     left: 0;
     width: calc(100vw);

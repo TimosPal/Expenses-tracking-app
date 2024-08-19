@@ -7,7 +7,8 @@ import { toggleSidebar } from '@/state/sidebar'
 function toggle() {
   toggleSidebar()
   if (sidebarIsActive.value === true && sidebarModeClass.value === 'invis') {
-    // sidebarIsActive does not trigger watch change before the invis check. (We would expect min-hover)
+    // sidebarIsActive does not trigger watch change before the invis check.
+    // (We would expect max-hover)
     enableFog(102)
   }
 }
@@ -54,7 +55,7 @@ const iconClass = computed(() => (sidebarIsActive.value ? 'pi pi-bars' : 'pi pi-
     &.min-no-hover {
       margin-left: $sidebar-minimised-width;
     }
-    &.min-hover {
+    &.max-hover {
       margin-left: $sidebar-maximised-width;
     }
     &.invis {

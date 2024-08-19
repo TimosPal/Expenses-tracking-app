@@ -4,11 +4,11 @@ import { disableFog } from '@/state/fog'
 import { disableSidebar, setSidebarMode } from '@/state/sidebar'
 
 function navButtonHandler() {
-  if (sidebarModeClass.value == 'min-hover') {
+  if (sidebarModeClass.value == 'max-hover') {
     // TODO: fix manual variable setting.
     setSidebarMode('invis')
-    disableSidebar()
     disableFog()
+    disableSidebar()
   }
 }
 </script>
@@ -77,7 +77,7 @@ function navButtonHandler() {
       @include sidebarToggle($sidebar-maximised-width, visible, 1);
     }
   }
-  &.min-hover {
+  &.max-hover {
     @include sidebarToggle($sidebar-maximised-width, visible, 1);
   }
   &.invis {

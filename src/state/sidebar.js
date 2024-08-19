@@ -13,7 +13,6 @@ function toggleSidebar() {
 }
 
 function setSidebarMode(mode) {
-  console.log(mode)
   sidebarModeClass.value = mode
 }
 
