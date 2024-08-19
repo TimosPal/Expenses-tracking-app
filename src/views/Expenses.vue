@@ -1,14 +1,6 @@
 <script setup>
-import { ref } from 'vue'
-import dummyData from '@/assets/data/dummyData.json'
 import { enablePopup } from '@/state/popup'
 import ExpenseForm from '@/components/ExpenseForm.vue'
-
-const expenses = ref(dummyData)
-
-const deleteExpense = (index) => {
-  expenses.value.splice(index, 1)
-}
 
 const addExpense = () => {
   enablePopup(ExpenseForm)
@@ -21,31 +13,7 @@ const addExpense = () => {
       <h4>Add new expense:</h4>
       <button @click="addExpense()"><i class="pi pi-plus"></i></button>
     </div>
-    <div class="table-main">
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Category</th>
-            <th>Money</th>
-            <th>Paying method</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(expense, index) in expenses" :key="index">
-            <td>{{ expense.date }}</td>
-            <td>{{ expense.category }}</td>
-            <td>{{ expense.money }}</td>
-            <td>{{ expense.method }}</td>
-            <td>
-              <button @click="deleteExpense(index)"><i class="pi pi-pencil"></i></button>
-              <button @click="deleteExpense(index)"><i class="pi pi-trash"></i></button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <Table></Table>
   </Page>
 </template>
 

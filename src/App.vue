@@ -13,7 +13,8 @@ function getToggleClass() {
       // When resizing from small to big -> activate.
       enableSidebar()
       if (popup.isActive.value === false) {
-        disableFog() // Disable original smoke
+        // Disable original smoke only if it was active from sidebar and not a popup
+        disableFog()
       }
       // disablePopupComponent() // Disable any probably popup before resizing.
       firstTimeBig = false
