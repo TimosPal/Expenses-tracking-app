@@ -1,12 +1,13 @@
 <script setup>
-import { sidebarModeClass, sidebarIsActive } from '@/state/store'
+import { sidebarModeClass } from '@/state/store'
 import { disableFog } from '@/composables/UseFog'
+import { disableSidebar, setSidebarMode } from '@/composables/UseSidebar'
 
 function navButtonHandler() {
   if (sidebarModeClass.value == 'min-hover') {
     // TODO: fix manual variable setting.
-    sidebarModeClass.value = 'invis'
-    sidebarIsActive.value = false
+    setSidebarMode('invis')
+    disableSidebar()
     disableFog()
   }
 }

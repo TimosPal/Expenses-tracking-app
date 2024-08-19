@@ -1,6 +1,7 @@
 <script setup>
 import { sidebarIsActive, sidebarModeClass, popup } from '@/state/store'
 import { onMounted, onUnmounted, watch } from 'vue'
+import { enableSidebar, disableSidebar, setSidebarMode } from '@/composables/UseSidebar'
 
 let firstTimeSmall = true
 let firstTimeBig = true
@@ -9,7 +10,7 @@ function getToggleClass() {
   if (window.innerWidth >= phoneScreenWidth) {
     if (firstTimeBig) {
       // When resizing from small to big -> activate.
-      sidebarIsActive.value = true
+      enableSidebar()
       firstTimeBig = false
       firstTimeSmall = true
     }
@@ -23,7 +24,7 @@ function getToggleClass() {
   } else {
     if (firstTimeSmall) {
       // When resizing from big to small -> de-activate.
-      sidebarIsActive.value = false
+      disableSidebar()
       firstTimeSmall = false
       firstTimeBig = true
     }
@@ -37,22 +38,18 @@ function getToggleClass() {
   }
 }
 
-sidebarModeClass.value = getToggleClass() // TODO: better init (?)
-
-const handleResize = () => {
-  sidebarModeClass.value = getToggleClass()
-}
+setSidebarMode(getToggleClass()) // TODO: better init (?)
 
 onMounted(() => {
-  window.addEventListener('resize', handleResize)
+  window.addEventListener('resize', setSidebarMode(getToggleClass()))
 })
 
 onUnmounted(() => {
-  window.removeEventListener('resize', handleResize)
+  window.removeEventListener('resize', setSidebarMode(getToggleClass()))
 })
 
 watch(sidebarIsActive, () => {
-  sidebarModeClass.value = getToggleClass()
+  setSidebarMode(getToggleClass())
 })
 </script>
 

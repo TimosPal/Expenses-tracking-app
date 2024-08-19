@@ -1,12 +1,13 @@
 <script setup>
+import { computed } from 'vue'
 import { sidebarIsActive, sidebarModeClass } from '@/state/store'
 import { enableFog } from '@/composables/UseFog'
-import { computed } from 'vue'
+import { toggleSidebar } from '@/composables/UseSidebar'
 
 function toggle() {
-  sidebarIsActive.value = !sidebarIsActive.value
-  console.log(sidebarModeClass.value)
+  toggleSidebar()
   if (sidebarIsActive.value === true && sidebarModeClass.value === 'invis') {
+    // sidebarIsActive does not trigger watch change before the invis check. (We would expect min-hover)
     enableFog(102)
   }
 }
