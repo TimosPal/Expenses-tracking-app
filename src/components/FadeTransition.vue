@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <Transition name="fade" appear>
+  <Transition name="fade">
     <slot></slot>
   </Transition>
 </template>
@@ -9,7 +9,7 @@
 <style lang="scss">
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 4s ease;
+  transition: opacity $transition-speed ease;
 }
 
 .fade-enter-from,

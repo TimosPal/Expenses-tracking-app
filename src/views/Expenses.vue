@@ -15,6 +15,8 @@ const addExpense = () => {
   popup.isActive.value = true
   popup.component = ExpenseForm
 }
+
+addExpense()
 </script>
 
 <template>

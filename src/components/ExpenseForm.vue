@@ -13,7 +13,7 @@ const submitForm = () => {}
 </script>
 
 <template>
-  <FadeTransition>
+  <MoveTransition>
     <Card>
       <div class="expense-form">
         <h2>Add new expense</h2>
@@ -50,7 +50,7 @@ const submitForm = () => {}
         </form>
       </div>
     </Card>
-  </FadeTransition>
+  </MoveTransition>
 </template>
 
 <style lang="scss" scoped>
