@@ -1,5 +1,5 @@
 import { popup } from '@/state/store'
-import { enableFog, disableFog } from '@/composables/UseFog'
+import { enableFog, disableFog } from '@/state/fog'
 
 function enablePopup(comp) {
   enableFog(103)

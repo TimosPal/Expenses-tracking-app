@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { popup } from '@/state/store'
-import { disablePopupComponent, disablePopup } from '@/composables/UsePopup'
+import { disablePopupComponent, disablePopup } from '@/state/popup'
 import { dateObjToStringFormat } from '@/misc/DateUtils'
 
 // Define form structure.

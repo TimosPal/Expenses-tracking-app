@@ -1,7 +1,7 @@
 <script setup>
 import { sidebarModeClass } from '@/state/store'
-import { disableFog } from '@/composables/UseFog'
-import { disableSidebar, setSidebarMode } from '@/composables/UseSidebar'
+import { disableFog } from '@/state/fog'
+import { disableSidebar, setSidebarMode } from '@/state/sidebar'
 
 function navButtonHandler() {
   if (sidebarModeClass.value == 'min-hover') {

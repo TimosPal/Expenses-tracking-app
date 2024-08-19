@@ -1,7 +1,7 @@
 <script setup>
 import { sidebarIsActive, sidebarModeClass, popup } from '@/state/store'
 import { onMounted, onUnmounted, watch } from 'vue'
-import { enableSidebar, disableSidebar, setSidebarMode } from '@/composables/UseSidebar'
+import { enableSidebar, disableSidebar, setSidebarMode } from '@/state/sidebar'
 
 let firstTimeSmall = true
 let firstTimeBig = true
@@ -38,14 +38,18 @@ function getToggleClass() {
   }
 }
 
+function windowResize() {
+  setSidebarMode(getToggleClass())
+}
+
 setSidebarMode(getToggleClass()) // TODO: better init (?)
 
 onMounted(() => {
-  window.addEventListener('resize', setSidebarMode(getToggleClass()))
+  window.addEventListener('resize', windowResize)
 })
 
 onUnmounted(() => {
-  window.removeEventListener('resize', setSidebarMode(getToggleClass()))
+  window.removeEventListener('resize', windowResize)
 })
 
 watch(sidebarIsActive, () => {

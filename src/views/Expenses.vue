@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import dummyData from '@/assets/data/dummyData.json'
-import { enablePopup } from '@/composables/UsePopup'
+import { enablePopup } from '@/state/popup'
 import ExpenseForm from '@/components/ExpenseForm.vue'
 
 const expenses = ref(dummyData)

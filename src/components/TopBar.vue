@@ -1,8 +1,8 @@
 <script setup>
 import { computed } from 'vue'
 import { sidebarIsActive, sidebarModeClass } from '@/state/store'
-import { enableFog } from '@/composables/UseFog'
-import { toggleSidebar } from '@/composables/UseSidebar'
+import { enableFog } from '@/state/fog'
+import { toggleSidebar } from '@/state/sidebar'
 
 function toggle() {
   toggleSidebar()

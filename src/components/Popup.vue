@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-import { disablePopupComponent } from '@/composables/UsePopup'
+import { disablePopupComponent } from '@/state/popup'
 
 const popupContainer = ref(null)
 
