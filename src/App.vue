@@ -12,7 +12,10 @@ function getToggleClass() {
     if (firstTimeBig) {
       // When resizing from small to big -> activate.
       enableSidebar()
-      disableFog()
+      if (popup.isActive.value === false) {
+        disableFog() // Disable original smoke
+      }
+      // disablePopupComponent() // Disable any probably popup before resizing.
       firstTimeBig = false
       firstTimeSmall = true
     }
