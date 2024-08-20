@@ -9,11 +9,13 @@ const addExpense = () => {
 
 <template>
   <Page title="Expenses" subtitle="Where expenses are added">
+    <DateRange></DateRange>
     <div class="new-expense-input">
-      <h4>Add new expense:</h4>
-      <button @click="addExpense()"><i class="pi pi-plus"></i></button>
+      <button @click="addExpense()">
+        <h4>Add new expense</h4>
+      </button>
     </div>
-    <Table></Table>
+    <ExpensesTable></ExpensesTable>
   </Page>
 </template>
 
@@ -21,6 +23,7 @@ const addExpense = () => {
 .new-expense-input {
   display: flex;
   flex-direction: row;
+  justify-content: end;
   margin: 1rem;
 
   button {

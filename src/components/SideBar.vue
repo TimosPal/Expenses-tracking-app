@@ -21,8 +21,8 @@ function navButtonHandler() {
     <ul class="links" @click="navButtonHandler">
       <li>
         <router-link to="/">
-          <i class="pi pi-home"></i>
-          <h4>Home</h4>
+          <i class="pi pi-chart-line"></i>
+          <h4>Dashboard</h4>
         </router-link>
       </li>
       <li>

@@ -1,13 +1,8 @@
 import PrimeVue from 'primevue/config'
 import Aura from '@primevue/themes/aura'
 
-import Tabs from 'primevue/tabs'
-import TabList from 'primevue/tablist'
-import Tab from 'primevue/tab'
-import TabPanels from 'primevue/tabpanels'
-import TabPanel from 'primevue/tabpanel'
-import DatePicker from 'primevue/datepicker'
-import ProgressBar from 'primevue/progressbar'
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
 
 import 'primeicons/primeicons.css'
 
@@ -23,13 +18,9 @@ const primeVue = PrimeVue
 function setupComponents(app) {
   // Some components are not properly auto-registered
   // therefore we have to register them manually.
-  app.component('Tabs', Tabs)
-  app.component('TabList', TabList)
-  app.component('Tab', Tab)
-  app.component('TabPanels', TabPanels)
-  app.component('TabPanel', TabPanel)
-  app.component('DatePicker', DatePicker)
-  app.component('ProgressBar', ProgressBar)
+
+  app.component('DataTable', DataTable)
+  app.component('Column', Column)
 }
 
 export { primeVue, primeVue_options, setupComponents }

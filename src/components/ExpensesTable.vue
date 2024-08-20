@@ -1,18 +1,50 @@
 <script setup>
 import { ref } from 'vue'
+import dummyData from '@/assets/data/dummyData.json'
+import dummyOptions from '@/assets/data/dummyOptions.json'
+
+const expenses = ref(dummyData)
+const colorOptions = dummyOptions.Colors
+
+function getColor(option) {
+  if (option in colorOptions) {
+    return colorOptions[option]
+  } else {
+    return colorOptions.Default
+  }
+}
+
+const deleteExpense = (index) => {
+  expenses.value.splice(index, 1)
+}
+
+const editExpense = () => {}
 </script>
 
 <template>
   <div class="table-main">
     <table>
       <thead>
-        <tr v-for="(column, index) in columns" :key="index">
-          <th>{{ column }}</th>
+        <tr>
+          <th>Date</th>
+          <th>Category</th>
+          <th>Money</th>
+          <th>Paying method</th>
+          <th>Status</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(row, index) in rows" :key="index">
-          <td v-for="(row_i, index) in row" :key="index">{{ row_i }}</td>
+        <tr v-for="(expense, index) in expenses" :key="index">
+          <td>{{ expense.date }}</td>
+          <td :style="{ backgroundColor: getColor(expense.category) }">{{ expense.category }}</td>
+          <td>{{ expense.money }}</td>
+          <td>{{ expense.method }}</td>
+          <td>{{ expense.status }}</td>
+          <td>
+            <button @click="editExpense"><i class="pi pi-pencil"></i></button>
+            <button @click="deleteExpense(index)"><i class="pi pi-trash"></i></button>
+          </td>
         </tr>
       </tbody>
     </table>
