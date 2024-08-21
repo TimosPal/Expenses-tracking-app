@@ -1,7 +1,6 @@
 <script setup>
 import FinancialInfo from '@/components/FinancialInfo.vue'
 import DateRange from '@/components/DateRange.vue'
-import { ref } from 'vue'
 import { Pie } from 'vue-chartjs'
 
 // Define chart data
@@ -40,7 +39,6 @@ const options = {
   <Page title="Dashboard" subtitle="General overview">
     <DateRange />
     <FinancialInfo />
-    <TableExample></TableExample>
     <div class="chart-container">
       <Pie :data="data" :options="options" />
     </div>

@@ -7,116 +7,48 @@ const expenses = ref(dummyData)
 const colorOptions = dummyOptions.Colors
 
 function getColor(option) {
-  if (option in colorOptions) {
-    return colorOptions[option]
-  } else {
-    return colorOptions.Default
-  }
+  return colorOptions[option] || colorOptions.Default
 }
 
-const deleteExpense = (index) => {
-  expenses.value.splice(index, 1)
+const deleteExpense = (id) => {
+  expenses.value = expenses.value.filter((expense) => expense.id !== id)
 }
-
 const editExpense = () => {}
+
+const headers = [
+  { id: 'date', name: 'Date' },
+  { id: 'category', name: 'Category' },
+  { id: 'money', name: 'Money' },
+  { id: 'status', name: 'Status' },
+  { id: 'method', name: 'Method' },
+  { id: 'actions', name: 'Actions' }
+]
 </script>
 
 <template>
-  <div class="table-main">
-    <table>
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Category</th>
-          <th>Money</th>
-          <th>Paying method</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(expense, index) in expenses" :key="index">
-          <td>{{ expense.date }}</td>
-          <td :style="{ backgroundColor: getColor(expense.category) }">{{ expense.category }}</td>
-          <td>{{ expense.money }}</td>
-          <td>{{ expense.method }}</td>
-          <td>{{ expense.status }}</td>
-          <td>
-            <button @click="editExpense"><i class="pi pi-pencil"></i></button>
-            <button @click="deleteExpense(index)"><i class="pi pi-trash"></i></button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <Table :headers="headers" :data="expenses" :style="{ width: '100%' }">
+    <template #column-category="{ rowProps }">
+      <div :style="{ backgroundColor: getColor(rowProps.category) }">
+        {{ rowProps.category }}
+      </div>
+    </template>
+    <template #column-actions="{ rowProps }">
+      <button @click="editExpense"><i class="pi pi-pencil"></i></button>
+      <button @click="deleteExpense(rowProps.id)"><i class="pi pi-trash"></i></button>
+    </template>
+  </Table>
 </template>
 
 <style lang="scss" scoped>
-.table-main {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  overflow: hidden;
-  background-color: #f9f9f9;
+button {
+  all: unset;
+  margin: 0 0.3rem;
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-
-    thead {
-      background-color: $secondary-color;
-      color: $primary-color;
-
-      th {
-        padding: 1rem;
-        text-align: left;
-        font-weight: bold;
-        font-size: 1rem;
-      }
-
-      th:last-child {
-        text-align: right;
-        padding-right: 2rem;
-      }
-    }
-
-    tbody {
-      tr:nth-child(even) {
-        background-color: #f2f2f2;
-      }
-
-      tr:nth-child(odd) {
-        background-color: #ffffff;
-      }
-
-      tr {
-        &:last-child td {
-          border-bottom: none;
-        }
-
-        td {
-          padding: 0.4rem 0.5rem;
-          border-bottom: 1px solid #ddd;
-          color: $secondary-color-shade;
-
-          button {
-            all: unset;
-            margin: 0 0.3rem;
-
-            i {
-              font-size: 1.2rem;
-              &:hover {
-                -webkit-text-stroke-width: 1px;
-                -webkit-text-stroke-color: rgb(0, 0, 0);
-              }
-            }
-          }
-
-          &:last-child {
-            text-align: right;
-            padding-right: 2rem;
-          }
-        }
-      }
+  i {
+    font-size: 1.2rem;
+    &:hover {
+      -webkit-text-stroke-width: 1px;
+      -webkit-text-stroke-color: rgb(0, 0, 0);
     }
   }
 }
