@@ -1,18 +1,28 @@
 <script setup>
-import { ref } from 'vue'
+import { defineProps } from 'vue'
+
+defineProps(['headers', 'data'])
 </script>
 
 <template>
   <div class="table-main">
     <table>
       <thead>
-        <tr v-for="(column, index) in columns" :key="index">
-          <th>{{ column }}</th>
+        <tr>
+          <th v-for="header in headers" :key="header.key">
+            <slot :name="`header-${header.key}`" :headerProps="header">
+              {{ header.name }}
+            </slot>
+          </th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(row, index) in rows" :key="index">
-          <td v-for="(row_i, index) in row" :key="index">{{ row_i }}</td>
+        <tr v-for="row in data" :key="row.id">
+          <td v-for="header in headers" :key="header.key">
+            <slot :name="`column-${header.key}`" :rowProps="row">
+              {{ row[header.key] }}
+            </slot>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -26,8 +36,9 @@ import { ref } from 'vue'
   overflow: hidden;
   background-color: #f9f9f9;
 
+  width: fit-content;
+
   table {
-    width: 100%;
     border-collapse: collapse;
 
     thead {
@@ -39,11 +50,6 @@ import { ref } from 'vue'
         text-align: left;
         font-weight: bold;
         font-size: 1rem;
-      }
-
-      th:last-child {
-        text-align: right;
-        padding-right: 2rem;
       }
     }
 
@@ -65,24 +71,6 @@ import { ref } from 'vue'
           padding: 0.4rem 0.5rem;
           border-bottom: 1px solid #ddd;
           color: $secondary-color-shade;
-
-          button {
-            all: unset;
-            margin: 0 0.3rem;
-
-            i {
-              font-size: 1.2rem;
-              &:hover {
-                -webkit-text-stroke-width: 1px;
-                -webkit-text-stroke-color: rgb(0, 0, 0);
-              }
-            }
-          }
-
-          &:last-child {
-            text-align: right;
-            padding-right: 2rem;
-          }
         }
       }
     }

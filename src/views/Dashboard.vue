@@ -40,6 +40,7 @@ const options = {
   <Page title="Dashboard" subtitle="General overview">
     <DateRange />
     <FinancialInfo />
+    <TableExample></TableExample>
     <div class="chart-container">
       <Pie :data="data" :options="options" />
     </div>
