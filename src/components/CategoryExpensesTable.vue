@@ -19,11 +19,20 @@ const headers = [
 <template>
   <Table :headers="headers" :data="expenses" :style="{ width: '100%' }">
     <template #column-category="{ rowProps }">
-      <div :style="{ backgroundColor: getColor(rowProps.category) }">
+      <div class="color-identifier" :style="{ backgroundColor: getColor(rowProps.category) }">
         {{ rowProps.category }}
       </div>
     </template>
   </Table>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.color-identifier {
+  width: 100%;
+  text-align: center;
+  border-radius: 1rem;
+  padding: 0.2rem;
+
+  font-weight: bold;
+}
+</style>

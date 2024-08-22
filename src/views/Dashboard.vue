@@ -24,12 +24,12 @@ const headers = [
 const data = {
   responsive: true,
   maintainAspectRatio: false,
-  labels: ['Red', 'Blue', 'Yellow'],
+  labels: ['Transport', 'Food', 'Default'],
   datasets: [
     {
       label: 'My First Dataset',
-      data: [300, 50, 100],
-      backgroundColor: ['rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(255, 205, 86)'],
+      data: [15, 30, 120],
+      backgroundColor: ['#38aa51', '#aa3838', '#8ca7c7'],
       hoverOffset: 4
     }
   ]
