@@ -2,6 +2,23 @@
 import FinancialInfo from '@/components/FinancialInfo.vue'
 import DateRange from '@/components/DateRange.vue'
 import { Pie } from 'vue-chartjs'
+import CategoryExpensesTable from '@/components/CategoryExpensesTable.vue'
+
+import { ref } from 'vue'
+import dummyData from '@/assets/data/dummyCategoryData.json'
+import dummyOptions from '@/assets/data/dummyOptions.json'
+
+const expenses = ref(dummyData)
+const colorOptions = dummyOptions.Colors
+
+function getColor(option) {
+  return colorOptions[option] || colorOptions.Default
+}
+
+const headers = [
+  { id: 'category', name: 'Category' },
+  { id: 'sum', name: 'Sum' }
+]
 
 // Define chart data
 const data = {
@@ -39,13 +56,26 @@ const options = {
   <Page title="Dashboard" subtitle="General overview">
     <DateRange />
     <FinancialInfo />
-    <div class="chart-container">
-      <Pie :data="data" :options="options" />
+
+    <div class="categories-info">
+      <div class="chart-container">
+        <Pie :data="data" :options="options" />
+      </div>
+      <CategoryExpensesTable :style="{ width: '12rem' }"></CategoryExpensesTable>
     </div>
   </Page>
 </template>
 
 <style lang="scss" scoped>
+.categories-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  margin: 2rem;
+}
+
 .chart-container {
   width: 20rem;
   height: 20rem;
