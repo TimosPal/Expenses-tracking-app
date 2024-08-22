@@ -71,7 +71,7 @@ const headers = [
         {{ rowProps.money }}
       </div>
       <div v-else>
-        <input type="text" v-model="rowProps.money" />
+        <input type="text" v-model="getRow(rowProps.id).money" />
       </div>
     </template>
 
@@ -80,7 +80,7 @@ const headers = [
         {{ rowProps.date }}
       </div>
       <div v-else>
-        <input type="date" v-model="rowProps.date" />
+        <input type="date" v-model="getRow(rowProps.id).date" />
       </div>
     </template>
 
@@ -89,7 +89,7 @@ const headers = [
         {{ rowProps.status }}
       </div>
       <div v-else>
-        <select name="status-dropdown" v-model="rowProps.status">
+        <select name="status-dropdown" v-model="getRow(rowProps.id).status">
           <option value="Owes to:">Owes</option>
           <option value="Owed by:">Owed by</option>
           <option value="Done">Done</option>
@@ -102,7 +102,7 @@ const headers = [
         {{ rowProps.method }}
       </div>
       <div v-else>
-        <select name="status-dropdown" v-model="rowProps.method">
+        <select name="status-dropdown" v-model="getRow(rowProps.id).method">
           <option value="Card (Revolut)">Card (Revolut)</option>
           <option value="Card">Card</option>
         </select>
