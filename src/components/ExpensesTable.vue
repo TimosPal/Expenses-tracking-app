@@ -4,6 +4,7 @@ import dummyData from '@/assets/data/dummyData.json'
 import dummyOptions from '@/assets/data/dummyOptions.json'
 
 const expenses = ref(dummyData)
+let expensesEditMode = null
 const editModeID = ref(0)
 const colorOptions = dummyOptions.Colors
 
@@ -11,11 +12,29 @@ function getColor(option) {
   return colorOptions[option] || colorOptions.Default
 }
 
-const deleteExpense = (id) => {
+function getRow(id) {
+  const index = expensesEditMode.findIndex((item) => item.id === id)
+  return expensesEditMode[index]
+}
+
+function cancel() {
+  editModeID.value = 0
+  expensesEditMode = null
+}
+
+function accept(id) {
+  const index = expensesEditMode.findIndex((item) => item.id === id)
+  expenses.value[index] = JSON.parse(JSON.stringify(expensesEditMode[index]))
+
+  cancel()
+}
+
+function deleteExpense(id) {
   expenses.value = expenses.value.filter((expense) => expense.id !== id)
 }
-const editExpense = (id) => {
+function editExpense(id) {
   editModeID.value = id
+  expensesEditMode = JSON.parse(JSON.stringify(expenses.value))
 }
 
 const headers = [
@@ -39,7 +58,7 @@ const headers = [
         {{ rowProps.category }}
       </div>
       <div v-else>
-        <select name="category-dropdown" v-model="rowProps.category">
+        <select name="category-dropdown" v-model="getRow(rowProps.id).category">
           <option value="Food">Food</option>
           <option value="Transport">Transport</option>
           <option value="Drink">Drink</option>
@@ -91,8 +110,14 @@ const headers = [
     </template>
 
     <template #column-actions="{ rowProps }">
-      <button @click="editExpense(rowProps.id)"><i class="pi pi-pencil"></i></button>
-      <button @click="deleteExpense(rowProps.id)"><i class="pi pi-trash"></i></button>
+      <div v-if="rowProps.id !== editModeID">
+        <button @click="editExpense(rowProps.id)"><i class="pi pi-pencil"></i></button>
+        <button @click="deleteExpense(rowProps.id)"><i class="pi pi-trash"></i></button>
+      </div>
+      <div v-else>
+        <button @click="accept(rowProps.id, expensesEditMode)"><i class="pi pi-check"></i></button>
+        <button @click="cancel()"><i class="pi pi-times"></i></button>
+      </div>
     </template>
   </Table>
 </template>
@@ -104,7 +129,9 @@ const headers = [
   border-radius: 1rem;
   padding: 0.2rem;
 
-  font-weight: bold;
+  font-weight: bolder;
+
+  color: black;
 }
 
 button {
