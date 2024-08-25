@@ -54,36 +54,48 @@ watch([fromDate, toDate], dateChange)
 <template>
   <div class="date-range">
     <div class="presets">
-      <button
-        type="button"
+      <Button
         :class="{ activated: activePreset === 'today' }"
-        @click="handlePreset('today')"
+        :clickCallback="
+          () => {
+            handlePreset('today')
+          }
+        "
       >
         Today
-      </button>
-      <button
-        type="button"
+      </Button>
+      <Button
         :class="{ activated: activePreset === 'week' }"
-        @click="handlePreset('week')"
+        :clickCallback="
+          () => {
+            handlePreset('week')
+          }
+        "
       >
         Week
-      </button>
-      <button
-        type="button"
+      </Button>
+      <Button
         :class="{ activated: activePreset === 'month' }"
-        @click="handlePreset('month')"
+        :clickCallback="
+          () => {
+            handlePreset('month')
+          }
+        "
       >
         Month
-      </button>
-      <button
-        type="button"
+      </Button>
+      <Button
         :class="{ activated: activePreset === 'year' }"
-        @click="handlePreset('year')"
+        :clickCallback="
+          () => {
+            handlePreset('year')
+          }
+        "
       >
         Year
-      </button>
+      </Button>
     </div>
-    <div class="custom">
+    <div class="customDate">
       <div class="from">
         <h4>From:</h4>
         <input type="date" id="from" v-model="fromDate" :max="toDate" />
@@ -110,30 +122,12 @@ watch([fromDate, toDate], dateChange)
     justify-content: center;
     flex-wrap: wrap;
 
-    button {
-      all: unset;
-      font-size: 1rem;
-      text-align: center;
-      min-width: 5rem;
-      padding: 0.2rem;
-      margin: 0.6rem 0.5rem;
-      background-color: $secondary-color;
-      color: $primary-color;
-      border-radius: 1.5rem;
-
-      &:hover {
-        background-color: $secondary-color-shade;
-        cursor: pointer;
-      }
-
-      &.activated {
-        background-color: $secondary-color-shade;
-        font-weight: bold;
-      }
+    Button {
+      margin: 0.2rem;
     }
   }
 
-  .custom {
+  .customDate {
     display: flex;
     flex-direction: row;
     justify-content: center;
