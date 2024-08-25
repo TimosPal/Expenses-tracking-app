@@ -42,7 +42,7 @@ table {
     color: $primary-color;
 
     th {
-      padding: 1rem;
+      padding: 0.4rem;
       text-align: left;
       font-weight: bold;
       font-size: 1rem;

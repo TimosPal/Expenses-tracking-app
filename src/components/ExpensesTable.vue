@@ -33,6 +33,8 @@ function deleteExpense(id) {
   expenses.value = expenses.value.filter((expense) => expense.id !== id)
 }
 function editExpense(id) {
+  cancel()
+
   editModeID.value = id
   expensesEditMode = JSON.parse(JSON.stringify(expenses.value))
 }
@@ -41,14 +43,15 @@ const headers = [
   { id: 'date', name: 'Date' },
   { id: 'category', name: 'Category' },
   { id: 'money', name: 'Money' },
-  { id: 'status', name: 'Status' },
   { id: 'method', name: 'Method' },
+  { id: 'comment', name: ' Comment' },
+  { id: 'status', name: 'Status' },
   { id: 'actions', name: 'Actions' }
 ]
 </script>
 
 <template>
-  <Table :headers="headers" :data="expenses" :style="{ width: '100%' }">
+  <Table :headers="headers" :data="expenses">
     <template #column-category="{ rowProps }">
       <div
         class="color-identifier"
@@ -72,6 +75,15 @@ const headers = [
       </div>
       <div v-else>
         <input type="text" v-model="getRow(rowProps.id).money" />
+      </div>
+    </template>
+
+    <template #column-comment="{ rowProps }">
+      <div v-if="rowProps.id !== editModeID">
+        {{ rowProps.comment }}
+      </div>
+      <div v-else>
+        <input type="text" v-model="getRow(rowProps.id).comment" />
       </div>
     </template>
 
@@ -103,7 +115,9 @@ const headers = [
       </div>
       <div v-else>
         <select name="status-dropdown" v-model="getRow(rowProps.id).method">
-          <option value="Card (Revolut)">Card (Revolut)</option>
+          <option value="Eurobank">Eurobank</option>
+          <option value="Alphabank">Alphabank</option>
+          <option value="Revolut">Revolut</option>
           <option value="Card">Card</option>
         </select>
       </div>
@@ -115,8 +129,8 @@ const headers = [
         <button @click="deleteExpense(rowProps.id)"><i class="pi pi-trash"></i></button>
       </div>
       <div v-else>
-        <button @click="accept(rowProps.id, expensesEditMode)"><i class="pi pi-check"></i></button>
         <button @click="cancel()"><i class="pi pi-times"></i></button>
+        <button @click="accept(rowProps.id, expensesEditMode)"><i class="pi pi-check"></i></button>
       </div>
     </template>
   </Table>
@@ -132,6 +146,15 @@ const headers = [
   font-weight: bolder;
 
   color: black;
+}
+
+select,
+input[type='text'] {
+  width: 10ch;
+}
+
+input[type='date'] {
+  width: 13ch;
 }
 
 button {

@@ -5,7 +5,8 @@
     "category": "Food",
     "money": "$5.00",
     "status": "Done",
-    "method": "Card (Revolut)"
+    "comment": "night out",
+    "method": "Revolut"
   },
   {
     "id": 2,
@@ -13,23 +14,8 @@
     "category": "Transport",
     "money": "$20.00",
     "status": "Owes to: Bob",
+    "comment": "taxi",
     "method": "Cash"
-  },
-  {
-    "id": 3,
-    "date": "02/01/2024",
-    "category": "Random",
-    "money": "$50.00",
-    "status": "Owed by: Mark",
-    "method": "Card (Alpha-bank)"
-  },
-  {
-    "id": 4,
-    "date": "04/01/2024",
-    "category": "Food",
-    "money": "$5.00",
-    "status": "Done",
-    "method": "Card (Revolut)"
   },
   {
     "id": 5,
@@ -37,7 +23,26 @@
     "category": "Food",
     "money": "$5.00",
     "status": "Done",
-    "method": "Card (Revolut)"
+    "comment": "-",
+    "method": "Revolut"
+  },
+  {
+    "id": 3,
+    "date": "02/01/2024",
+    "category": "Random",
+    "money": "$50.00",
+    "status": "Owed by: Mark",
+    "comment": "yoga class",
+    "method": "Alphabank"
+  },
+  {
+    "id": 4,
+    "date": "04/01/2024",
+    "category": "Food",
+    "money": "$5.00",
+    "status": "Done",
+    "comment": "-",
+    "method": "Revolut"
   },
   {
     "id": 6,
@@ -45,6 +50,7 @@
     "category": "Drink",
     "money": "$50.00",
     "status": "Owed by: Mark",
-    "method": "Card (Alpha-bank)"
+    "comment": "vodka",
+    "method": "Eurobank"
   }
 ]
