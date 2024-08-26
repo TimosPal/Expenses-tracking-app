@@ -2,23 +2,8 @@
 import FinancialInfo from '@/components/FinancialInfo.vue'
 import DateRange from '@/components/DateRange.vue'
 import { Pie } from 'vue-chartjs'
+import { Line } from 'vue-chartjs'
 import CategoryExpensesTable from '@/components/CategoryExpensesTable.vue'
-
-import { ref } from 'vue'
-import dummyData from '@/assets/data/dummyCategoryData.json'
-import dummyOptions from '@/assets/data/dummyOptions.json'
-
-const expenses = ref(dummyData)
-const colorOptions = dummyOptions.Colors
-
-function getColor(option) {
-  return colorOptions[option] || colorOptions.Default
-}
-
-const headers = [
-  { id: 'category', name: 'Category' },
-  { id: 'sum', name: 'Sum' }
-]
 
 // Define chart data
 const data = {
@@ -50,6 +35,46 @@ const options = {
     }
   }
 }
+
+const chartData = {
+  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+  datasets: [
+    {
+      label: 'Dummy Data',
+      backgroundColor: '#42A5F5',
+      borderColor: '#42A5F5',
+      data: [30, 50, 70, 40, 60, 80, 100],
+      fill: false // Keeps it as a line chart without filling below the line
+    },
+    {
+      label: 'Dummy Data2',
+      backgroundColor: '#12A2F2',
+      borderColor: '#1005C1',
+      data: [10, 60, 73, 2, 120, 30, 10],
+      fill: false // Keeps it as a line chart without filling below the line
+    }
+  ]
+}
+
+const chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  scales: {
+    x: {
+      title: {
+        display: true,
+        text: 'Months'
+      }
+    },
+    y: {
+      title: {
+        display: true,
+        text: 'Values'
+      },
+      beginAtZero: true
+    }
+  }
+}
 </script>
 
 <template>
@@ -57,27 +82,47 @@ const options = {
     <DateRange />
     <FinancialInfo />
 
-    <div class="categories-info">
-      <div class="chart-container">
-        <Pie :data="data" :options="options" />
+    <div class="chart-container">
+      <div class="lineChart">
+        <Line :data="chartData" :options="chartOptions"></Line>
       </div>
-      <CategoryExpensesTable :style="{ width: '12rem' }"></CategoryExpensesTable>
+      <div class="pieChart">
+        <Pie :data="data" :options="options" />
+        <CategoryExpensesTable
+          :style="{ width: '12rem', height: '10rem', marginLeft: '2rem' }"
+        ></CategoryExpensesTable>
+      </div>
     </div>
   </Page>
 </template>
 
 <style lang="scss" scoped>
-.categories-info {
+.chart-container {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
 
-  margin: 2rem;
-}
+  margin-top: 2rem;
 
-.chart-container {
-  width: 20rem;
-  height: 20rem;
+  .pieChart {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    width: 30rem;
+    height: 20rem;
+
+    margin-bottom: 4rem;
+  }
+
+  .lineChart {
+    width: 25rem;
+    height: 20rem;
+
+    margin-bottom: 2rem;
+  }
 }
 </style>
