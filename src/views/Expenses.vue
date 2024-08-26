@@ -1,22 +1,11 @@
-<script setup>
-import { enablePopup } from '@/state/popup'
-import ExpenseForm from '@/components/ExpenseForm.vue'
-
-const addExpense = () => {
-  enablePopup(ExpenseForm)
-}
-</script>
+<script setup></script>
 
 <template>
-  <Page title="Expenses" subtitle="Where expenses are added">
+  <Page title="Expenses" subtitle="Table of expenses">
     <DateRange></DateRange>
-    <Button :clickCallback="addExpense">Add new expense</Button>
+
     <ExpensesTable></ExpensesTable>
   </Page>
 </template>
 
-<style lang="scss" scoped>
-Button {
-  margin-bottom: 0.4rem;
-}
-</style>
+<style lang="scss" scoped></style>

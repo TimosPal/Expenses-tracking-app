@@ -74,7 +74,7 @@ const submitForm = () => {
 <style lang="scss" scoped>
 .expense-form {
   padding: 1.5rem;
-  min-width: 35vw;
+  min-width: 20rem;
 
   h2 {
     text-align: center;

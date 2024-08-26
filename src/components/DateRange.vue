@@ -97,11 +97,11 @@ watch([fromDate, toDate], dateChange)
     </div>
     <div class="customDate">
       <div class="from">
-        <h4>From:</h4>
+        <label>from:</label>
         <input type="date" id="from" v-model="fromDate" :max="toDate" />
       </div>
       <div class="to">
-        <h4>To:</h4>
+        <label>To:</label>
         <input type="date" id="to" v-model="toDate" :min="fromDate" />
       </div>
     </div>
